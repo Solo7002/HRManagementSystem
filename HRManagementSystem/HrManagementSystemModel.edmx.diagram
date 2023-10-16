@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3eaf087bc6344b758f336b6699305c63" Name="Diagram1" ZoomLevel="73">
+        <EntityTypeShape EntityType="HRManagementSystemDbModel.Department" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRManagementSystemDbModel.EmployeePostInfo" Width="1.5" PointX="5.625" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRManagementSystemDbModel.Employee" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRManagementSystemDbModel.Job" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRManagementSystemDbModel.Level" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRManagementSystemDbModel.Review" Width="1.5" PointX="8.375" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRManagementSystemDbModel.User" Width="1.5" PointX="4.875" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="HRManagementSystemDbModel.FK__EmployeeP__Depar__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="HRManagementSystemDbModel.FK_DepartmentHead_EmployeeId" ManuallyRouted="false" />
+        <AssociationConnector Association="HRManagementSystemDbModel.FK__EmployeeP__Emplo__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="HRManagementSystemDbModel.FK__EmployeeP__Job_i__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="HRManagementSystemDbModel.FK__Reviews__Employe__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="HRManagementSystemDbModel.FK__Reviews__Employe__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="HRManagementSystemDbModel.FK__Users__UserId__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="HRManagementSystemDbModel.FK__Users__Level_id__2D27B809" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
