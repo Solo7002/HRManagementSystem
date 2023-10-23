@@ -47,6 +47,8 @@ namespace HRManagementSystem.Windows
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            new MainProgramWindow().Show();
+            Close();
             int _tempSum = 0;
             foreach (var item in grid.Children)
             {
