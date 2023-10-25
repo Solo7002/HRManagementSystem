@@ -25,10 +25,11 @@ namespace HRManagementSystem.Windows
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            MainProgramPageControl.currentWindow = this;
+
             List<string> list = new List<string>();
             list.Add("Profile");
             list.Add("Employees");
-            list.Add("Diagrams");
             list.Add("Reviews");
             list.Add("Settings");
 
@@ -38,6 +39,9 @@ namespace HRManagementSystem.Windows
 
                 (lbMenu.Items[lbMenu.Items.Count - 1] as ListBoxItem).Style = (Style)this.FindResource("lbItemOrange");
             }
+
+            lbLogOut.Items.Add(new ListBoxItem { Content = "Log out", HorizontalContentAlignment = HorizontalAlignment.Center, Height = 80});
+            (lbLogOut.Items[0] as ListBoxItem).Style = (Style)this.FindResource("lbItemOrange");
         }
 
         private void lbMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -49,6 +53,15 @@ namespace HRManagementSystem.Windows
             (lbMenu.SelectedItem as ListBoxItem).FontWeight = FontWeights.Medium;
 
             MainFrame.Content = MainProgramPageControl.GetPageByName((lbMenu.SelectedItem as ListBoxItem).Tag.ToString());
+        }
+
+        private void lbLogOut_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lbLogOut.SelectedIndex == 0 && MessageBox.Show("Are you sure you want log out?", "Loging out", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)  
+            {
+                new SignInWindow().Show();
+                Close();
+            }
         }
     }
 }

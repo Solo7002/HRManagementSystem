@@ -14,17 +14,15 @@
         <Grid Background="#444444">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
-                <RowDefinition x:Name="rdStarHeight" Height="*"/>
+                <RowDefinition Height="7*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
 
             <TextBlock Text="Hr Management" FontWeight="Bold" FontSize="34" Foreground="Orange" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-            <ListBox Grid.Row="1" Grid.RowSpan="5" x:Name="lbMenu" FontSize="28" Background="#444444" BorderThickness="0 1 0 0" Foreground="White" SelectionChanged="lbMenu_SelectionChanged"/>
+            <ListBox Grid.Row="1" x:Name="lbMenu" FontSize="28" Background="#444444" BorderThickness="0 1 0 0" Foreground="White" SelectionChanged="lbMenu_SelectionChanged"/>
+
+            <ListBox x:Name="lbLogOut" Grid.Row="2" Grid.Column="0" FontSize="28" Background="#444444" BorderThickness="0 1 0 0" Foreground="White" SelectionChanged="lbLogOut_SelectionChanged"/>
         </Grid>
         <Frame Grid.Column="1" x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>

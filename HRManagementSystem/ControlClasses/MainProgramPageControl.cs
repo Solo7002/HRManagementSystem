@@ -12,6 +12,8 @@ namespace HRManagementSystem.ControlClasses
 {
     internal static class MainProgramPageControl
     {
+        public static Window currentWindow { get; set; } 
+
         private static List<Page> pages = new List<Page> { new ProfilePage(), new EmployeesPage(), new DiagramsPage(), new ReviewsPage(), new SettingsPage() };
 
         public static Page GetPageByName(string name)

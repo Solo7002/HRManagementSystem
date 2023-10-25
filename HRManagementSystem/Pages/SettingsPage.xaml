@@ -7,7 +7,29 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsPage">
-    <Grid Background="#333333">
-        <TextBlock Foreground="White" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page Settings"/>
+    <Grid Background="#555555">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Foreground="Orange" FontSize="52" FontWeight="Medium" FontFamily="Cascadia Code" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Settings" Margin="40"/>
+
+        <Grid  Grid.Row="1" Background="#333333" Margin="40 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Choose language" FontSize="24" Foreground="White" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10 0 10 0"/>
+            <ComboBox Grid.Column="1" FontSize="20" VerticalAlignment="Center" Margin="7 0 0 0" Foreground="White" Style="{StaticResource cbOrange}">
+                <ComboBoxItem Content="English" Style="{StaticResource cbItemOrange}"/>
+                <ComboBoxItem Content="Ukrainian" Style="{StaticResource cbItemOrange}"/>
+                <ComboBoxItem Content="German" Style="{StaticResource cbItemOrange}"/>
+                <ComboBoxItem Content="China" Style="{StaticResource cbItemOrange}"/>
+                <ComboBoxItem Content="Japanise" Style="{StaticResource cbItemOrange}"/>
+            </ComboBox>
+        </Grid>
     </Grid>
 </Page>

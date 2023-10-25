@@ -14,8 +14,8 @@
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Log in" Foreground="White" FontSize="38" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="1" x:Name="tbLogin" Text="username" Background="#444444" Foreground="#bfbfbf" Margin="25 20" FontSize="22" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="username" Style="{StaticResource tbOrange}"/>
-        <TextBox Grid.Row="2" x:Name="tbPassword" Text="password" Background="#444444" Foreground="#bfbfbf" Margin="25 20" FontSize="22" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="password" Style="{StaticResource tbOrange}"/>
-        <Button Grid.Row="3" Margin="25 20" Content="Log in" FontSize="28" Background="#f5bc17" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Click="Button_Click"/>
+        <TextBox Grid.Row="1" x:Name="tbLogin" Text="username" Foreground="#bfbfbf" Margin="25 20" FontSize="22" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="username" Style="{StaticResource tbOrange}"/>
+        <TextBox Grid.Row="2" x:Name="tbPassword" Text="password" Foreground="#bfbfbf" Margin="25 20" FontSize="22" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="password" Style="{StaticResource tbOrange}"/>
+        <Button Grid.Row="3" Margin="25 20" Content="Log in" FontSize="28" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Click="Button_Click"/>
     </Grid>
 </Window>
