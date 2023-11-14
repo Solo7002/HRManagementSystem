@@ -21,7 +21,7 @@ namespace HRManagementSystem
         public Nullable<int> EmployeeFor_id { get; set; }
         public Nullable<int> EmployeeFrom_id { get; set; }
     
-        public virtual EmployeePostInfo EmployeePostInfo { get; set; }
         public virtual Employee Employee { get; set; }
+        public virtual Employee Employee1 { get; set; }
     }
 }

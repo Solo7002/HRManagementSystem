@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using HRManagementSystem.DbClasses;
+using HRManagementSystem.TransferClasses;
 
 namespace HRManagementSystem.Windows
 {
@@ -47,37 +48,45 @@ namespace HRManagementSystem.Windows
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new MainProgramWindow().Show();
-            Close();
-            int _tempSum = 0;
-            foreach (var item in grid.Children)
+            try
             {
-                if (item is TextBox tb) 
+                int _tempSum = 0;
+                foreach (var item in grid.Children)
                 {
-                    if (tb.Text == tb.Tag.ToString() || tb.Text.All(t => t == ' '))
+                    if (item is TextBox tb)
                     {
-                        tb.BorderThickness = new Thickness(1);
-                        tb.BorderBrush = Brushes.Red;
-                        _tempSum++;
-                    }
-                    else
-                    {
-                        tb.BorderThickness = new Thickness(1);
-                        tb.BorderBrush = new SolidColorBrush(Color.FromRgb(171, 173, 179));
+                        if (tb.Text == tb.Tag.ToString() || tb.Text.All(t => t == ' '))
+                        {
+                            tb.BorderThickness = new Thickness(1);
+                            tb.BorderBrush = Brushes.Red;
+                            _tempSum++;
+                        }
+                        else
+                        {
+                            tb.BorderThickness = new Thickness(1);
+                            tb.BorderBrush = new SolidColorBrush(Color.FromRgb(171, 173, 179));
+                        }
                     }
                 }
+                if (_tempSum > 0)
+                {
+                    MessageBox.Show($"Fields can't be empty!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else if (!hrDb.UserAnyByLoginPassword(tbLogin.Text, tbPassword.Text))
+                {
+                    MessageBox.Show("No users with such login and password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    CurrentUserTransfer.employee = hrDb.GetEmployeeByLogin(tbLogin.Text);
+
+                    new MainProgramWindow().Show();
+                    Close();
+                }
             }
-            if (_tempSum > 0)
+            catch (Exception ex)
             {
-                MessageBox.Show($"Fields can't be empty!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else if (!hrDb.UserAnyByLoginPassword(tbLogin.Text, tbPassword.Text))
-            {
-                MessageBox.Show("No users with such login and password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else
-            {
-                //window.show();
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

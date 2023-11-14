@@ -13,10 +13,10 @@ namespace HRManagementSystem
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class HRManagementSystemDbEntities : DbContext
+    public partial class HRManagementDbEntities : DbContext
     {
-        public HRManagementSystemDbEntities()
-            : base("name=HRManagementSystemDbEntities")
+        public HRManagementDbEntities()
+            : base("name=HRManagementDbEntities")
         {
         }
     

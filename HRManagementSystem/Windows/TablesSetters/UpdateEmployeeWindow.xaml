@@ -1,22 +1,18 @@
-﻿<Page x:Class="HRManagementSystem.Pages.ProfilePage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:HRManagementSystem.Pages"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="ProfilePage" Loaded="Page_Loaded">
+﻿<Window x:Class="HRManagementSystem.Windows.TablesSetters.UpdateEmployeeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HRManagementSystem.Windows.TablesSetters"
+        mc:Ignorable="d"
+        Title="AddEmployeeWindow" Height="600" Width="1000" MinHeight="600" MinWidth="1000" Loaded="Window_Loaded">
     <Grid Background="#555555">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="5*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Foreground="Orange" FontSize="52" FontWeight="Medium" FontFamily="Cascadia Code" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Profile" Margin="40"/>
-
-        <Grid Grid.Row="1" Background="#555555" Margin="40 0">
+        <Grid x:Name="gdMain" Grid.Row="0" Background="#555555" Margin="40 40 40 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="4*"/>
@@ -26,7 +22,7 @@
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="20 0 0 0" Background="#333333" >
+            <Grid x:Name="gdJi" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Background="#333333" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -43,22 +39,22 @@
                 <TextBlock Grid.ColumnSpan="2" Text="Job info" FontSize="26" Foreground="White" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Job" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
-                <TextBox Grid.Row="1" x:Name="tbJiJob" Grid.Column="1" Text=".net Developer" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="False" Margin="0 0 15 0"/>
+                <ComboBox Grid.Row="1" x:Name="cbJiJob" Grid.Column="1"  FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource cbOrange}" Margin="0 0 15 0"/>
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Department" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
-                <TextBox Grid.Row="2" x:Name="tbJiDepartment" Grid.Column="1" Text="Developers" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="False" Margin="0 0 15 0"/>
+                <ComboBox Grid.Row="2" x:Name="cbJiDepartment" Grid.Column="1" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource cbOrange}" Margin="0 0 15 0"/>
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="Hire date" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
-                <TextBox Grid.Row="3" Grid.Column="1" x:Name="tbJiHireDate" Text="01.09.2023" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="False" Margin="0 0 15 0"/>
+                <TextBox Grid.Row="3" Grid.Column="1" x:Name="tbJiHireDate" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="False" Margin="0 0 15 0"/>
 
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="Salary $" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
-                <TextBox Grid.Row="4" Grid.Column="1" x:Name="tbJiSalary" Text="750" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="False" Margin="0 0 15 0"/>
+                <TextBox Grid.Row="4" Grid.Column="1" x:Name="tbJiSalary" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" Margin="0 0 15 0"/>
 
                 <TextBlock Grid.Row="5" Grid.Column="0" Text="Hours (p/w)" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
-                <TextBox Grid.Row="5" Grid.Column="1" x:Name="tbJiHours" Text="40" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="False" Margin="0 0 15 0"/>
+                <TextBox Grid.Row="5" Grid.Column="1" x:Name="tbJiHours" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" Margin="0 0 15 0"/>
             </Grid>
 
-            <Grid Grid.Column="1" Grid.Row="0" Background="#333333" Margin="20 0 0 0">
+            <Grid x:Name="gdPi" Grid.Column="1" Grid.Row="0" Background="#333333" Margin="20 0 0 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -74,19 +70,19 @@
                 <TextBlock Grid.ColumnSpan="2" Text="Personal info" FontSize="28" Foreground="White" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Last name" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
-                <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbPiLastName" Text="Solod" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="False" Margin="0 0 15 0"/>
+                <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbPiLastName" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" Margin="0 0 15 0"/>
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="First name" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
-                <TextBox Grid.Row="2" Grid.Column="1" x:Name="tbPiFisrtName"  Text="Ihor" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="False" Margin="0 0 15 0"/>
+                <TextBox Grid.Row="2" Grid.Column="1" x:Name="tbPiFisrtName" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" Margin="0 0 15 0"/>
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="Birth date" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
-                <TextBox Grid.Row="3" Grid.Column="1" x:Name="tbPiBirthdate"  Text="26.12.2007" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="False" Margin="0 0 15 0"/>
+                <TextBox Grid.Row="3" Grid.Column="1" x:Name="tbPiBirthdate"  FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" Margin="0 0 15 0"/>
 
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="Email" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
-                <TextBox Grid.Row="4" Grid.Column="1" x:Name="tbPiEmail"  Text="solod7002@gmail.com" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="True" Margin="0 0 15 0"/>
+                <TextBox Grid.Row="4" Grid.Column="1" x:Name="tbPiEmail" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="True" Margin="0 0 15 0"/>
             </Grid>
 
-            <Grid Grid.Column="1" Grid.Row="1" Background="#333333" Margin="20 20 0 0">
+            <Grid x:Name="gdUi" Grid.Column="1" Grid.Row="1" Background="#333333" Margin="20 20 0 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -101,16 +97,16 @@
                 <TextBlock Grid.ColumnSpan="2" Text="User info" FontSize="28" Foreground="White" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Login" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
-                <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbUiLogin"  Text="Solod_i07" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="True" Margin="0 0 15 0"/>
+                <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbUiLogin" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="True" Margin="0 0 15 0"/>
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Password" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
-                <TextBox Grid.Row="2" Grid.Column="1" x:Name="tbUiPassword" Text="89GWmAz7" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="True" Margin="0 0 15 0"/>
+                <TextBox Grid.Row="2" Grid.Column="1" x:Name="tbUiPassword" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="True" Margin="0 0 15 0"/>
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="Level of access" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
-                <TextBox Grid.Row="3" Grid.Column="1" x:Name="tbUiLevel" Text="Employee" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="False" Margin="0 0 15 0"/>
+                <ComboBox Grid.Row="3" Grid.Column="1" x:Name="cbUiLevel" Text="Employee" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource cbOrange}" Margin="0 0 15 0"/>
             </Grid>
         </Grid>
 
-        <Button Grid.Row="2" Content="Save changes" FontSize="34" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Margin="60 60 40 20" Click="Button_Click"/>
+        <Button Grid.Row="1" Content="Update employee" FontSize="34" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Margin="40 20" Click="Button_Click"/>
     </Grid>
-</Page>
+</Window>

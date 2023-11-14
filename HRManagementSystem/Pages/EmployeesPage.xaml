@@ -27,7 +27,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="Department" FontSize="24" Foreground="White" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10 0 10 0"/>
-            <ComboBox Grid.Column="1" FontSize="20" VerticalAlignment="Center" Margin="7 0 0 0" Foreground="White" Style="{StaticResource cbOrange}">
+            <ComboBox x:Name="cbDepartments" Grid.Column="1" FontSize="20" VerticalAlignment="Center" Margin="7 0 0 0" Foreground="White" Style="{StaticResource cbOrange}" SelectionChanged="cbDepartments_SelectionChanged">
                 <ComboBoxItem Content="All departments" Style="{StaticResource cbItemOrange}"/>
                 <ComboBoxItem Content="Developers" Style="{StaticResource cbItemOrange}"/>
                 <ComboBoxItem Content="HRs" Style="{StaticResource cbItemOrange}"/>
@@ -36,36 +36,44 @@
             </ComboBox>
 
             <TextBlock Grid.Column="2" Text="Seach" FontSize="24" Foreground="White" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="60 0 0 0"/>
-            <TextBox Grid.Column="3" FontSize="22" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" Margin="0 0 10 0"/>
+            <TextBox x:Name="tbSeach" Grid.Column="3" FontSize="22" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" Margin="0 0 10 0" TextChanged="tbSeach_TextChanged"/>
         </Grid>
 
         <Grid Grid.Row="2" Background="#333333" Margin="40 -1 40 0">
-            <ListView  Margin="10" x:Name="listViewEmployees" Background="#444444" Foreground="White" FontSize="20" ScrollViewer.HorizontalScrollBarVisibility="Hidden" SizeChanged="listViewEmployees_SizeChanged">
+            <ListView Margin="10" x:Name="listViewEmployees" Background="#444444" Foreground="White" FontSize="20" ScrollViewer.HorizontalScrollBarVisibility="Hidden" SelectionChanged="listViewEmployees_SelectionChanged">
                 <ListView.View>
                     <GridView x:Name="dgv">
-                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding LastName}"/>
-                        <GridViewColumn Header="Job" DisplayMemberBinding="{Binding Birthdate}"/>
-                        <GridViewColumn Header="Hours" DisplayMemberBinding="{Binding LastName}"/>
-                        <GridViewColumn Header="Salary $" DisplayMemberBinding="{Binding Phone}"/>
-                        <GridViewColumn Header="Actions"  DisplayMemberBinding="{Binding LastName}"/>
+                        <GridViewColumn Header="LastName" Width="1" DisplayMemberBinding="{Binding LastName}"/>
+
+                        <GridViewColumn Header="FirstName" Width="1"  DisplayMemberBinding="{Binding FirstName}"/>
+
+                        <GridViewColumn Header="Job" Width="2"  DisplayMemberBinding="{Binding EmployeePostInfo.Job.JobName}"/>
+
+                        <GridViewColumn Header="Salary $" Width="1" DisplayMemberBinding="{Binding EmployeePostInfo.Salary}"/>
+
+                        <GridViewColumn Header="Pros" Width="0.5"  DisplayMemberBinding="{Binding EmployeePostInfo.Pros}"/>
+
+                        <GridViewColumn Header="Cons" Width="0.5"  DisplayMemberBinding="{Binding EmployeePostInfo.Cons}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
         </Grid>
 
-        <Grid Grid.Row="3" Background="#333333" Margin="40 -1 40 0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            
-            
-            <Button Grid.Column="0" Content="Hire new Employee" FontSize="24" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Margin="10 10 20 10"/>
-            <Button Grid.Column="1" Content="Update Employee" FontSize="24" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Margin="20 10"/>
-            <Button Grid.Column="2" Content="Dismiss Employee" FontSize="24" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Margin="20 10"/>
-            <Button Grid.Column="3" Content="Add Review" FontSize="24" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Margin="20 10 10 10"/>
+        <Grid x:Name="gdButtons" Grid.Row="3" Background="#333333" Margin="40 -1 40 0">
+
+            <Grid Margin="12 0 11 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="btnAddEmployee" Grid.Column="0" Content="Hire new Employee" FontSize="24" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Margin="0 10 20 10" Click="btnAddEmployee_Click"/>
+                <Button x:Name="btnUpdateEmployee" Grid.Column="1" Content="Update Employee" FontSize="24" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Margin="20 10" Click="btnUpdateEmployee_Click"/>
+                <Button x:Name="btnDelEmployee" Grid.Column="2" Content="Dismiss Employee" FontSize="24" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Margin="20 10" Click="btnDelEmployee_Click"/>
+                <Button x:Name="btnAddReview" Grid.Column="3" Content="Add Review" FontSize="24" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Margin="20 10 0 10" Click="btnAddReview_Click"/>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

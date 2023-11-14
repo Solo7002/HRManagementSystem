@@ -11,19 +11,13 @@ namespace HRManagementSystem
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     public partial class EmployeePostInfo
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public EmployeePostInfo()
-        {
-            this.Reviews = new HashSet<Review>();
-        }
-    
-        public int EmployeeId { get; set; }
+        public int EmployeePostInfoId { get; set; }
         public Nullable<double> Salary { get; set; }
         public Nullable<System.DateTime> HireDate { get; set; }
-        public Nullable<System.DateTime> DismissalDate { get; set; }
         public Nullable<int> HoursPerWeek { get; set; }
         public Nullable<int> Department_id { get; set; }
         public Nullable<int> Job_id { get; set; }
@@ -31,7 +25,21 @@ namespace HRManagementSystem
         public virtual Department Department { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual Job Job { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Review> Reviews { get; set; }
+
+
+        public int Pros
+        { 
+            get
+            {
+                return Employee.Reviews.Where(r => r.IsGoodReview == true).Count();
+            }
+        }
+        public int Cons
+        {
+            get
+            {
+                return Employee.Reviews.Where(r => r.IsGoodReview == false).Count();
+            }
+        }
     }
 }

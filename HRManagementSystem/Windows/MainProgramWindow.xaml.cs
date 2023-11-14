@@ -25,34 +25,48 @@ namespace HRManagementSystem.Windows
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            MainProgramPageControl.currentWindow = this;
-
-            List<string> list = new List<string>();
-            list.Add("Profile");
-            list.Add("Employees");
-            list.Add("Reviews");
-            list.Add("Settings");
-
-            foreach (string item in list)
+            try
             {
-                lbMenu.Items.Add(new ListBoxItem { Content = item, HorizontalContentAlignment = HorizontalAlignment.Center, Height = 70, Tag = item });
+                MainProgramPageControl.currentWindow = this;
 
-                (lbMenu.Items[lbMenu.Items.Count - 1] as ListBoxItem).Style = (Style)this.FindResource("lbItemOrange");
+                List<string> list = new List<string>();
+                list.Add("Profile");
+                list.Add("Employees");
+                list.Add("Reviews");
+                list.Add("Settings");
+
+                foreach (string item in list)
+                {
+                    lbMenu.Items.Add(new ListBoxItem { Content = item, HorizontalContentAlignment = HorizontalAlignment.Center, Height = 70, Tag = item });
+
+                    (lbMenu.Items[lbMenu.Items.Count - 1] as ListBoxItem).Style = (Style)this.FindResource("lbItemOrange");
+                }
+
+                lbLogOut.Items.Add(new ListBoxItem { Content = "Log out", HorizontalContentAlignment = HorizontalAlignment.Center, Height = 80 });
+                (lbLogOut.Items[0] as ListBoxItem).Style = (Style)this.FindResource("lbItemOrange");
             }
-
-            lbLogOut.Items.Add(new ListBoxItem { Content = "Log out", HorizontalContentAlignment = HorizontalAlignment.Center, Height = 80});
-            (lbLogOut.Items[0] as ListBoxItem).Style = (Style)this.FindResource("lbItemOrange");
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void lbMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            foreach (ListBoxItem item in lbMenu.Items)
+            try
             {
-                item.FontWeight = FontWeights.Normal;
-            }
+                foreach (ListBoxItem item in lbMenu.Items)
+                {
+                    item.FontWeight = FontWeights.Normal;
+                }
             (lbMenu.SelectedItem as ListBoxItem).FontWeight = FontWeights.Medium;
 
-            MainFrame.Content = MainProgramPageControl.GetPageByName((lbMenu.SelectedItem as ListBoxItem).Tag.ToString());
+                MainFrame.Content = MainProgramPageControl.GetPageByName((lbMenu.SelectedItem as ListBoxItem).Tag.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void lbLogOut_SelectionChanged(object sender, SelectionChangedEventArgs e)

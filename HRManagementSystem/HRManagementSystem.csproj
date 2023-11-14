@@ -75,10 +75,20 @@
     <Compile Include="EmployeePostInfo.cs">
       <DependentUpon>HrManagementSystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="HrManagementSystemModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HrManagementSystemModel.Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="HrManagementSystemModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HrManagementSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HrManagementSystemModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HrManagementSystemModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Job.cs">
       <DependentUpon>HrManagementSystemModel.tt</DependentUpon>
@@ -104,28 +114,29 @@
     <Compile Include="Review.cs">
       <DependentUpon>HrManagementSystemModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="User.cs">
-      <DependentUpon>HrManagementSystemModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="TransferClasses\CurrentUserTransfer.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="HrManagementSystemModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HrManagementSystemModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="HrManagementSystemModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HrManagementSystemModel.edmx</DependentUpon>
+    <Compile Include="TransferClasses\HrDbTransfer.cs" />
+    <Compile Include="User.cs">
+      <DependentUpon>HrManagementSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainProgramWindow.xaml.cs">
       <DependentUpon>MainProgramWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\SignInWindow.xaml.cs">
       <DependentUpon>SignInWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TablesSetters\AddEmployeeWindow.xaml.cs">
+      <DependentUpon>AddEmployeeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TablesSetters\AddReviewWindow.xaml.cs">
+      <DependentUpon>AddReviewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TablesSetters\UpdateEmployeeWindow.xaml.cs">
+      <DependentUpon>UpdateEmployeeWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -163,18 +174,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HrManagementSystemModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>HrManagementSystemModel.Context.cs</LastGenOutput>
-      <DependentUpon>HrManagementSystemModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="HrManagementSystemModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HrManagementSystemModel.edmx</DependentUpon>
-      <LastGenOutput>HrManagementSystemModel.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
@@ -206,9 +205,30 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\TablesSetters\AddEmployeeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TablesSetters\AddReviewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TablesSetters\UpdateEmployeeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="TransferClasses\" />
+    <Content Include="HrManagementSystemModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HrManagementSystemModel.edmx</DependentUpon>
+      <LastGenOutput>HrManagementSystemModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="HrManagementSystemModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HrManagementSystemModel.edmx</DependentUpon>
+      <LastGenOutput>HrManagementSystemModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

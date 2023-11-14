@@ -11,7 +11,8 @@ namespace HRManagementSystem
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     public partial class Employee
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,19 +20,32 @@ namespace HRManagementSystem
         {
             this.Departments = new HashSet<Department>();
             this.Reviews = new HashSet<Review>();
+            this.Reviews1 = new HashSet<Review>();
         }
     
         public int EmployeeId { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public Nullable<System.DateTime> BirthDate { get; set; }
-        public string Phone { get; set; }
+        public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Department> Departments { get; set; }
         public virtual EmployeePostInfo EmployeePostInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Review> Reviews1 { get; set; }
         public virtual User User { get; set; }
+
+        public int GetGoodReviewsCount()
+        {
+            return Reviews.Where(r=>r.IsGoodReview==true).Count();
+        }
+
+        public int GetBadReviewsCount()
+        {
+            return Reviews.Where(r => r.IsGoodReview == false).Count();
+        }
     }
 }
