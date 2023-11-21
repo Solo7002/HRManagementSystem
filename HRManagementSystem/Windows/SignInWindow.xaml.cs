@@ -24,6 +24,7 @@ namespace HRManagementSystem.Windows
         {
             InitializeComponent();
             hrDb = new HrManagementDb();
+            HrDbTransfer.SetHrManagementDb(hrDb);
         }
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {

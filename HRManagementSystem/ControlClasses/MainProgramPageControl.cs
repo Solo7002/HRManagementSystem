@@ -14,7 +14,7 @@ namespace HRManagementSystem.ControlClasses
     {
         public static Window currentWindow { get; set; } 
 
-        private static List<Page> pages = new List<Page> { new ProfilePage(), new EmployeesPage(), new DiagramsPage(), new ReviewsPage(), new SettingsPage() };
+        private static List<Page> pages = new List<Page> { new ProfilePage(), new EmployeesPage(), new DepartmentsPage(), new JobsPage(), new ReviewsPage(), new SettingsPage() };
 
         public static Page GetPageByName(string name)
         {

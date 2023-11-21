@@ -24,12 +24,11 @@ namespace HRManagementSystem.Pages
         public ProfilePage()
         {
             InitializeComponent();
-
-            hrDb = new HrManagementDb();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            hrDb = TransferClasses.HrDbTransfer.hrManagementDb;
             try
             {
                 tbJiJob.Text = CurrentUserTransfer.employee.EmployeePostInfo.Job.JobName;

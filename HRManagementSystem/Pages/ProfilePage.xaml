@@ -111,6 +111,13 @@
             </Grid>
         </Grid>
 
-        <Button Grid.Row="2" Content="Save changes" FontSize="34" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Margin="60 60 40 20" Click="Button_Click"/>
+        <Grid Grid.Row="2" Background="#333333" Margin="60 30 40 20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="2" Content="Save changes" FontSize="34" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Margin="15 15 40 15" Click="Button_Click"/>
+        </Grid>
     </Grid>
 </Page>

@@ -29,14 +29,13 @@ namespace HRManagementSystem.Pages
         public EmployeesPage()
         {
             InitializeComponent();
-
-            hrDb = new HrManagementDb();
-            HrDbTransfer.SetHrManagementDb(hrDb);
             depName = "All Departments";
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            hrDb = TransferClasses.HrDbTransfer.hrManagementDb;
+
             cbDepartments.Items.Clear();
             cbDepartments.Items.Add(new ComboBoxItem { Content = "All Departments", Style = (Style)this.FindResource("cbItemOrange"), Tag=true});
             foreach (Department dep in hrDb.GetDepartments())
@@ -158,6 +157,11 @@ namespace HRManagementSystem.Pages
             {
                 if (listViewEmployees.SelectedItem != null) 
                 {
+                    if ((listViewEmployees.SelectedItem as Employee).LastName == CurrentUserTransfer.employee.LastName && (listViewEmployees.SelectedItem as Employee).FirstName == CurrentUserTransfer.employee.FirstName)
+                    {
+                        MessageBox.Show("You can't add review to yourself", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
                     CurrentUserTransfer.employeeForAddSet = hrDb.GetEmployeeByLogin((listViewEmployees.SelectedItem as Employee).User.Login);
                     if (new AddReviewWindow().ShowDialog() == true)
                     {
@@ -238,6 +242,11 @@ namespace HRManagementSystem.Pages
             {
                 if (listViewEmployees.SelectedItem != null && MessageBox.Show("Are you sure you want dissmiss that employee?\n\nWarning: All reviews with that employee also will be deleted!", "Dissmiss employee", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) 
                 {
+                    if ((listViewEmployees.SelectedItem as Employee).LastName == CurrentUserTransfer.employee.LastName && (listViewEmployees.SelectedItem as Employee).FirstName == CurrentUserTransfer.employee.FirstName)
+                    {
+                        MessageBox.Show("You can't dissmis yourself", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
                     hrDb.DelEmployee(listViewEmployees.SelectedItem as Employee);
                     FillEmployeesListView();
                     MessageBox.Show("Employee dissmissed successfully!");

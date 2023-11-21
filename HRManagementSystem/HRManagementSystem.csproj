@@ -96,11 +96,17 @@
     <Compile Include="Level.cs">
       <DependentUpon>HrManagementSystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Pages\DepartmentsPage.xaml.cs">
+      <DependentUpon>DepartmentsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\DiagramsPage.xaml.cs">
       <DependentUpon>DiagramsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\EmployeesPage.xaml.cs">
       <DependentUpon>EmployeesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\JobsPage.xaml.cs">
+      <DependentUpon>JobsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
@@ -129,8 +135,14 @@
     <Compile Include="Windows\SignInWindow.xaml.cs">
       <DependentUpon>SignInWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\TablesSetters\AddDepaertmentWindow.xaml.cs">
+      <DependentUpon>AddDepaertmentWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\TablesSetters\AddEmployeeWindow.xaml.cs">
       <DependentUpon>AddEmployeeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TablesSetters\AddJobWindow.xaml.cs">
+      <DependentUpon>AddJobWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\TablesSetters\AddReviewWindow.xaml.cs">
       <DependentUpon>AddReviewWindow.xaml</DependentUpon>
@@ -177,11 +189,19 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Pages\DepartmentsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\DiagramsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\EmployeesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\JobsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -205,7 +225,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\TablesSetters\AddDepaertmentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\TablesSetters\AddEmployeeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TablesSetters\AddJobWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

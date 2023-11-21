@@ -1,5 +1,6 @@
 ﻿using HRManagementSystem.ControlClasses;
 using HRManagementSystem.Pages;
+using HRManagementSystem.TransferClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,8 +33,12 @@ namespace HRManagementSystem.Windows
                 List<string> list = new List<string>();
                 list.Add("Profile");
                 list.Add("Employees");
+                if (CurrentUserTransfer.employee.User.Level.LevelName!="Worker")
+                {
+                    list.Add("Departments");
+                    list.Add("Jobs");
+                }
                 list.Add("Reviews");
-                list.Add("Settings");
 
                 foreach (string item in list)
                 {

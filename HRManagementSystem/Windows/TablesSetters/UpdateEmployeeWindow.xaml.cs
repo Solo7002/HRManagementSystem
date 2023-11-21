@@ -123,7 +123,7 @@ namespace HRManagementSystem.Windows.TablesSetters
                 MessageBox.Show("Wrong date input! Try that way (dd-MM-yyyy) or (dd.MM.yyyy)", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            else if (hrDb.UserAnyByLogin(tbUiLogin.Text))
+            else if (tbUiLogin.Text != CurrentUserTransfer.employeeForAddSet.User.Login && hrDb.UserAnyByLogin(tbUiLogin.Text))
             {
                 MessageBox.Show("User with such Login already exists!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
