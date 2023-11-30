@@ -1,24 +1,13 @@
 ﻿using HRManagementSystem.ControlClasses;
 using HRManagementSystem.DbClasses;
+using HRManagementSystem.TransferClasses;
+using HRManagementSystem.Translation;
+using HRManagementSystem.Windows.TablesSetters;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using HRManagementSystem.Windows.TablesSetters;
-using HRManagementSystem.TransferClasses;
 
 namespace HRManagementSystem.Pages
 {
@@ -26,18 +15,28 @@ namespace HRManagementSystem.Pages
     {
         private HrManagementDb hrDb;
         private string depName;
+        private List<double> widthes;
         public EmployeesPage()
         {
             InitializeComponent();
-            depName = "All Departments";
+            depName = OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EPCbAllDep");
+
+            widthes = new List<double>();
+            widthes.Add(1);
+            widthes.Add(1);
+            widthes.Add(1.5);
+            widthes.Add(0.9);
+            widthes.Add(0.8);
+            widthes.Add(0.8);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            TranslatePage();
             hrDb = TransferClasses.HrDbTransfer.hrManagementDb;
 
             cbDepartments.Items.Clear();
-            cbDepartments.Items.Add(new ComboBoxItem { Content = "All Departments", Style = (Style)this.FindResource("cbItemOrange"), Tag=true});
+            cbDepartments.Items.Add(new ComboBoxItem { Content = OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EPCbAllDep"), Style = (Style)this.FindResource("cbItemOrange"), Tag=true});
             foreach (Department dep in hrDb.GetDepartments())
             {
                 ComboBoxItem comboBoxItem = new ComboBoxItem { Content = dep.DepartmentName, Style = (Style)this.FindResource("cbItemOrange"), Tag=false };
@@ -55,6 +54,38 @@ namespace HRManagementSystem.Pages
 
             FillEmployeesListView();
             VisibilityButtons();
+            cbDepartments.SelectedIndex = 0;
+        }
+
+        private void TranslatePage()
+        {
+            textBlockMainHeader.Text = OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EPMainHeader");
+            foreach (var item in gridWithTbs.Children)
+            {
+                if (item is TextBlock tb)
+                {
+                    tb.Text = OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, tb.Tag.ToString());
+                }
+            }
+            List<string> list = new List<string>();
+            list.Add("EPLLn");
+            list.Add("EPLFn");
+            list.Add("EPLJ");
+            list.Add("EPLS");
+            list.Add("EPLPros");
+            list.Add("EPLCons");
+            for (int i = 0; i < dgv.Columns.Count;i++)
+            {
+                dgv.Columns[i].Header = OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, list[i]);
+            }
+
+            foreach (var item in gridWithButtons.Children)
+            {
+                if (item is Button btn)
+                {
+                    btn.Content = OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, btn.Tag.ToString());
+                }
+            }
         }
 
         private void cbDepartments_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -139,10 +170,10 @@ namespace HRManagementSystem.Pages
         {
             try
             {
-                foreach (GridViewColumn col in dgv.Columns)
+                for(int i = 0; i < dgv.Columns.Count;i++)
                 {
                     double StandartWidth = (double)((MainProgramPageControl.currentWindow.Width / 5 * 4) - 115) / dgv.Columns.Count;
-                    col.Width = (double)StandartWidth*col.Width;
+                    dgv.Columns[i].Width = (double)StandartWidth*widthes[i];
                 }
             }
             catch (Exception ex)
@@ -159,7 +190,7 @@ namespace HRManagementSystem.Pages
                 {
                     if ((listViewEmployees.SelectedItem as Employee).LastName == CurrentUserTransfer.employee.LastName && (listViewEmployees.SelectedItem as Employee).FirstName == CurrentUserTransfer.employee.FirstName)
                     {
-                        MessageBox.Show("You can't add review to yourself", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXEReviewYourself"), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                     CurrentUserTransfer.employeeForAddSet = hrDb.GetEmployeeByLogin((listViewEmployees.SelectedItem as Employee).User.Login);
@@ -184,7 +215,7 @@ namespace HRManagementSystem.Pages
                 {
                     hrDb.AddEmployee(CurrentUserTransfer.employeeForAddSet);
                     FillEmployeesListView();
-                    MessageBox.Show("User added successfully");
+                    MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXEUserAdded"));
                 }
             }
             catch (Exception ex)
@@ -204,7 +235,7 @@ namespace HRManagementSystem.Pages
                     {
                         hrDb.UpdateEmployee(CurrentUserTransfer.employeeForAddSet);
                         FillEmployeesListView();
-                        MessageBox.Show("User updated successfully");
+                        MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXEUserUpdated"));
                     }
                 }
             }
@@ -240,16 +271,16 @@ namespace HRManagementSystem.Pages
         {
             try
             {
-                if (listViewEmployees.SelectedItem != null && MessageBox.Show("Are you sure you want dissmiss that employee?\n\nWarning: All reviews with that employee also will be deleted!", "Dissmiss employee", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) 
+                if (listViewEmployees.SelectedItem != null && MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXETryDel"), "Dissmiss employee", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) 
                 {
                     if ((listViewEmployees.SelectedItem as Employee).LastName == CurrentUserTransfer.employee.LastName && (listViewEmployees.SelectedItem as Employee).FirstName == CurrentUserTransfer.employee.FirstName)
                     {
-                        MessageBox.Show("You can't dissmis yourself", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXEDelYourself"), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                     hrDb.DelEmployee(listViewEmployees.SelectedItem as Employee);
                     FillEmployeesListView();
-                    MessageBox.Show("Employee dissmissed successfully!");
+                    MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXEUserDeleted"));
                 }
             }
             catch (Exception ex)

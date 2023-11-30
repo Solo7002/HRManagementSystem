@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HRManagementSystem.DbClasses;
+using HRManagementSystem.TransferClasses;
+using HRManagementSystem.Translation;
+using System;
+using System.Globalization;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using HRManagementSystem.DbClasses;
-using HRManagementSystem.TransferClasses;
 
 namespace HRManagementSystem.Pages
 {
@@ -31,6 +23,8 @@ namespace HRManagementSystem.Pages
             hrDb = TransferClasses.HrDbTransfer.hrManagementDb;
             try
             {
+                TranslatePage();
+
                 tbJiJob.Text = CurrentUserTransfer.employee.EmployeePostInfo.Job.JobName;
                 tbJiDepartment.Text = CurrentUserTransfer.employee.EmployeePostInfo.Department.DepartmentName;
                 tbJiHireDate.Text = CurrentUserTransfer.employee.EmployeePostInfo.HireDate.Value.ToShortDateString();
@@ -52,32 +46,91 @@ namespace HRManagementSystem.Pages
             }
         }
 
+        private void TranslatePage()
+        {
+            string lang = LanguageTransfer.CurrentLanguage;
+            tbHeader.Text = OpenTranslation.GetTranslation(lang, "PPMainHeader");
+            btnSave.Content = OpenTranslation.GetTranslation(lang, "PPbtnSave");
+            foreach (var item in gridWithGrids.Children)
+            {
+                if (item is Grid grid)
+                {
+                    foreach(var element in grid.Children)
+                    {
+                        if (element is TextBlock block)
+                        {
+                            block.Text = OpenTranslation.GetTranslation(lang, block.Tag.ToString());
+                        }
+                    }
+                }
+            }
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                string lang = LanguageTransfer.CurrentLanguage;
                 if (tbUiLogin.Text.Length <= 2 || tbUiLogin.Text.Any(s=>s == ' '))
                 {
-                    throw new Exception("Login can't contain spaces, or be less than 3 symbols");
+                    throw new Exception(OpenTranslation.GetTranslation(lang, "EXPLogin"));
                 }
                 else if (tbUiPassword.Text.Length <= 2 || tbUiPassword.Text.Any(s => s == ' '))
                 {
-                    throw new Exception("Password can't contain spaces, or be less than 3 symbols");
+                    throw new Exception(OpenTranslation.GetTranslation(lang, "EXPPassword"));
                 }
-                else if (tbPiEmail.Text.Length <= 3 || tbPiEmail.Text.Any(s => s == ' ') || !tbPiEmail.Text.Any(s => s == '@'))
+                else if (tbPiEmail.Text.Length <= 3 || !IsValidEmail(tbPiEmail.Text))
                 {
-                    throw new Exception("Wrong email address");
+                    throw new Exception(OpenTranslation.GetTranslation(lang, "EXPEmail"));
                 }
                 CurrentUserTransfer.employee.User.Login = tbUiLogin.Text;
                 CurrentUserTransfer.employee.User.Password = tbUiPassword.Text;
                 CurrentUserTransfer.employee.Email = tbPiEmail.Text;
                 hrDb.UpdateEmployee(CurrentUserTransfer.employee);
 
-                MessageBox.Show("Your profile updated successfully");
+                MessageBox.Show(OpenTranslation.GetTranslation(lang, "EXPSuccesfully"));
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        public bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            try
+            {
+                email = Regex.Replace(email, @"(@)(.+)$", DomainMapper,
+                                      RegexOptions.None, TimeSpan.FromMilliseconds(200));
+                string DomainMapper(Match match)
+                {
+                    var idn = new IdnMapping();
+
+                    string domainName = idn.GetAscii(match.Groups[2].Value);
+
+                    return match.Groups[1].Value + domainName;
+                }
+            }
+            catch (RegexMatchTimeoutException e)
+            {
+                return false;
+            }
+            catch (ArgumentException e)
+            {
+                return false;
+            }
+
+            try
+            {
+                return Regex.IsMatch(email,
+                    @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
+                    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return false;
             }
         }
     }

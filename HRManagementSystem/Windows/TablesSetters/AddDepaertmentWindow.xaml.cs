@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HRManagementSystem.DbClasses;
+using HRManagementSystem.TransferClasses;
+using HRManagementSystem.Translation;
+using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using HRManagementSystem.DbClasses;
 
 namespace HRManagementSystem.Windows.TablesSetters
 {
@@ -24,19 +15,23 @@ namespace HRManagementSystem.Windows.TablesSetters
 
             hrDb = new HrManagementDb();
         }
-
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            textBlockHeader.Text = OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "DPAWHeader");
+            btnAddDep.Content = OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "DPAWbtnAdd");
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (string.IsNullOrEmpty(tbDepartmentName.Text) || string.IsNullOrWhiteSpace(tbDepartmentName.Text) || tbDepartmentName.Text.Length < 5)
                 {
-                    MessageBox.Show("Field Department name is empty or have less than 5 symbols!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXDAWEmpty"), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 else if (hrDb.AnyDepartmentByName(tbDepartmentName.Text))
                 {
-                    MessageBox.Show("Department with such name already exists!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXDAWjExists"), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 

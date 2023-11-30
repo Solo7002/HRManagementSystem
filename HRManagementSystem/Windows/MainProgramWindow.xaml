@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HRManagementSystem.Windows"
         mc:Ignorable="d"
-        Title="MainProgramWindow" Height="750" Width="1400" WindowState="Maximized" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" MinHeight="750" MinWidth="1400">
+        Title="MainProgramWindow" Height="750" Width="1400" WindowState="Maximized" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Closed="Window_Closed" MinHeight="750" MinWidth="1400">
     <Grid Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

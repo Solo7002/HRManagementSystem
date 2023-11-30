@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HRManagementSystem.Windows"
         mc:Ignorable="d"
-        Title="SignInWindow" Height="400" Width="370" MinHeight="400" MinWidth="370" MaxHeight="400" MaxWidth="400" WindowStartupLocation="CenterScreen" Background="#333333">
+        Title="SignInWindow" Height="400" Width="370" MinHeight="400" MinWidth="370" MaxHeight="400" MaxWidth="400" WindowStartupLocation="CenterScreen" Background="#333333" Loaded="Window_Loaded">
     <Grid x:Name="grid" Background="#333333">
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"/>
@@ -13,9 +13,10 @@
             <RowDefinition Height="3*"/>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Log in" Foreground="White" FontSize="38" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock x:Name="textBlockHeader" Grid.Row="0" Text="Log in" Foreground="White" FontSize="38" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBox Grid.Row="1" x:Name="tbLogin" Text="username" Foreground="#bfbfbf" Margin="25 20" FontSize="22" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="username" Style="{StaticResource tbOrange}"/>
-        <TextBox Grid.Row="2" x:Name="tbPassword" Text="password" Foreground="#bfbfbf" Margin="25 20" FontSize="22" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="password" Style="{StaticResource tbOrange}"/>
-        <Button Grid.Row="3" Margin="25 20" Content="Log in" FontSize="28" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Click="Button_Click"/>
+        <TextBox Grid.Row="2" x:Name="tbPassword" Text="password" Foreground="#bfbfbf" Margin="25 22" FontSize="22" GotFocus="tbPassword_GotFocus" Tag="password" Style="{StaticResource tbOrange}"/>
+        <PasswordBox Grid.Row="2" x:Name="pbPassword" Foreground="White" Background="#444444" Margin="25 22" FontSize="22" Tag="password" Style="{StaticResource paswBoxOrange}" Visibility="Hidden" LostFocus="pbPassword_LostFocus" />
+        <Button x:Name="btnLogIn" Grid.Row="3" Margin="25 20" Content="Log in" FontSize="28" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Click="Button_Click"/>
     </Grid>
 </Window>

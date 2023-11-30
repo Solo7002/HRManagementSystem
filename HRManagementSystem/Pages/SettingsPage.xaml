@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:HRManagementSystem.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="SettingsPage">
+      Title="SettingsPage" Loaded="Page_Loaded">
     <Grid Background="#555555">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -14,7 +14,7 @@
             <RowDefinition Height="5*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Foreground="Orange" FontSize="52" FontWeight="Medium" FontFamily="Cascadia Code" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Settings" Margin="40"/>
+        <TextBlock x:Name="textBlockHeader" Grid.Row="0" Foreground="Orange" FontSize="52" FontWeight="Medium" FontFamily="Cascadia Code" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Settings" Margin="40"/>
 
         <Grid  Grid.Row="1" Background="#333333" Margin="40 0">
             <Grid.ColumnDefinitions>
@@ -22,13 +22,15 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Choose language" FontSize="24" Foreground="White" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10 0 10 0"/>
-            <ComboBox Grid.Column="1" FontSize="20" VerticalAlignment="Center" Margin="7 0 0 0" Foreground="White" Style="{StaticResource cbOrange}">
-                <ComboBoxItem Content="English" Style="{StaticResource cbItemOrange}"/>
-                <ComboBoxItem Content="Ukrainian" Style="{StaticResource cbItemOrange}"/>
-                <ComboBoxItem Content="German" Style="{StaticResource cbItemOrange}"/>
-                <ComboBoxItem Content="China" Style="{StaticResource cbItemOrange}"/>
-                <ComboBoxItem Content="Japanise" Style="{StaticResource cbItemOrange}"/>
+            <TextBlock x:Name="textBlockLanguage" Grid.Column="0" Text="Choose language" FontSize="24" Foreground="White" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10 0 10 0"/>
+            <ComboBox x:Name="cbLanguages" Grid.Column="1" FontSize="20" VerticalAlignment="Center" Margin="7 0 0 0" Foreground="White" Style="{StaticResource cbOrange}" SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBoxItem Tag="en" Content="English" Style="{StaticResource cbItemOrange}"/>
+                <ComboBoxItem Tag="ua" Content="Українська" Style="{StaticResource cbItemOrange}"/>
+                <ComboBoxItem Tag="de" Content="Deutsch" Style="{StaticResource cbItemOrange}"/>
+                <ComboBoxItem Tag="fr" Content="Français" Style="{StaticResource cbItemOrange}"/>
+                <ComboBoxItem Tag="it" Content="Italiano" Style="{StaticResource cbItemOrange}"/>
+                <ComboBoxItem Tag="es" Content="Español" Style="{StaticResource cbItemOrange}"/>
+                <ComboBoxItem Tag="ja" Content="日本語" Style="{StaticResource cbItemOrange}"/>
             </ComboBox>
         </Grid>
     </Grid>

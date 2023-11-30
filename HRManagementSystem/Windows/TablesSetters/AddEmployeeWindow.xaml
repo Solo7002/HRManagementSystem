@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HRManagementSystem.Windows.TablesSetters"
         mc:Ignorable="d"
-        Title="AddEmployeeWindow" Height="600" Width="1000" MinHeight="600" MinWidth="1000" Loaded="Window_Loaded">
+        Title="AddEmployeeWindow" Height="600" Width="1200" MinHeight="600" MinWidth="1200" Loaded="Window_Loaded">
     <Grid Background="#555555">
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"/>
@@ -36,21 +36,21 @@
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.ColumnSpan="2" Text="Job info" FontSize="26" Foreground="White" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Tag="PPSmallHeaderJi" Grid.ColumnSpan="2" Text="Job info" FontSize="26" Foreground="White" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Job" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
+                <TextBlock Tag="PPJiJ" Grid.Row="1" Grid.Column="0" Text="Job" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
                 <ComboBox Grid.Row="1" x:Name="cbJiJob" Grid.Column="1"  FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource cbOrange}"  Margin="0 0 15 0"/>
 
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="Department" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
+                <TextBlock Tag="PPJiD" Grid.Row="2" Grid.Column="0" Text="Department" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
                 <ComboBox Grid.Row="2" x:Name="cbJiDepartment" Grid.Column="1" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource cbOrange}"   Margin="0 0 15 0"/>
 
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="Hire date" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
+                <TextBlock Tag="PPJiHd" Grid.Row="3" Grid.Column="0" Text="Hire date" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
                 <TextBox Grid.Row="3" Grid.Column="1" x:Name="tbJiHireDate" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="False" Margin="0 0 15 0"/>
 
-                <TextBlock Grid.Row="4" Grid.Column="0" Text="Salary $" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
+                <TextBlock Tag="PPJiS" Grid.Row="4" Grid.Column="0" Text="Salary $" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
                 <TextBox Grid.Row="4" Grid.Column="1" x:Name="tbJiSalary" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}"   Margin="0 0 15 0"/>
 
-                <TextBlock Grid.Row="5" Grid.Column="0" Text="Hours (p/w)" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
+                <TextBlock Tag="PPJiH" Grid.Row="5" Grid.Column="0" Text="Hours (p/w)" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
                 <TextBox Grid.Row="5" Grid.Column="1" x:Name="tbJiHours" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}"   Margin="0 0 15 0"/>
             </Grid>
 
@@ -67,18 +67,19 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.ColumnSpan="2" Text="Personal info" FontSize="28" Foreground="White" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Tag="PPSmallHeaderPi" Grid.ColumnSpan="2" Text="Personal info" FontSize="28" Foreground="White" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Last name" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
+                <TextBlock Tag="PPPiLn" Grid.Row="1" Grid.Column="0" Text="Last name" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
                 <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbPiLastName" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}"   Margin="0 0 15 0"/>
 
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="First name" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
+                <TextBlock Tag="PPPiFn" Grid.Row="2" Grid.Column="0" Text="First name" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
                 <TextBox Grid.Row="2" Grid.Column="1" x:Name="tbPiFisrtName" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}"   Margin="0 0 15 0"/>
 
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="Birth date" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
-                <TextBox Grid.Row="3" Grid.Column="1" x:Name="tbPiBirthdate"  FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" Margin="0 0 15 0"/>
+                <TextBlock Tag="PPPiBd" Grid.Row="3" Grid.Column="0" Text="Birth date" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
+                <DatePicker Grid.Row="3" Grid.Column="1" x:Name="dpPiBirthdate"  FontSize="20" Foreground="Black" VerticalAlignment="Center" Margin="0 0 15 0" Grid.IsSharedSizeScope="True" SelectedDate="2000-01-01" FirstDayOfWeek="Monday" IsDropDownOpen="False" BorderThickness="0" Loaded="dpPiBirthdate_Loaded">
+                </DatePicker>
 
-                <TextBlock Grid.Row="4" Grid.Column="0" Text="Email" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
+                <TextBlock Tag="PPPiE" Grid.Row="4" Grid.Column="0" Text="Email" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
                 <TextBox Grid.Row="4" Grid.Column="1" x:Name="tbPiEmail" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="True" Margin="0 0 15 0"/>
             </Grid>
 
@@ -94,19 +95,19 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.ColumnSpan="2" Text="User info" FontSize="28" Foreground="White" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Tag="PPSmallHeaderUi" Grid.ColumnSpan="2" Text="User info" FontSize="28" Foreground="White" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Login" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
+                <TextBlock Tag="PPUiLo" Grid.Row="1" Grid.Column="0" Text="Login" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
                 <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbUiLogin" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="True" Margin="0 0 15 0"/>
 
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="Password" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
+                <TextBlock Tag="PPUiPa" Grid.Row="2" Grid.Column="0" Text="Password" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
                 <TextBox Grid.Row="2" Grid.Column="1" x:Name="tbUiPassword" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" IsEnabled="True" Margin="0 0 15 0"/>
 
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="Level of access" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
+                <TextBlock Tag="PPUiLe" Grid.Row="3" Grid.Column="0" Text="Level of access" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
                 <ComboBox Grid.Row="3" Grid.Column="1" x:Name="cbUiLevel" Text="Employee" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource cbOrange}"   Margin="0 0 15 0"/>
             </Grid>
         </Grid>
 
-        <Button Grid.Row="1" Content="Hire employee" FontSize="34" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Margin="40 20" Click="Button_Click"/>
+        <Button x:Name="btnHire" Grid.Row="1" Content="Hire employee" FontSize="34" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Margin="40 20" Click="Button_Click"/>
     </Grid>
 </Window>

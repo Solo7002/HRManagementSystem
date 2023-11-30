@@ -1,17 +1,8 @@
 ﻿using HRManagementSystem.DbClasses;
+using HRManagementSystem.TransferClasses;
+using HRManagementSystem.Translation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace HRManagementSystem.Windows.TablesSetters
 {
@@ -25,18 +16,24 @@ namespace HRManagementSystem.Windows.TablesSetters
             hrDb = new HrManagementDb();
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            textBlockHeader.Text = OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "JPAWHeader");
+            btnAddJob.Content = OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "JPAWbtnAdd");
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (string.IsNullOrEmpty(tbJobName.Text) || string.IsNullOrWhiteSpace(tbJobName.Text) || tbJobName.Text.Length < 5)
                 {
-                    MessageBox.Show("Field Job name is empty or have less than 5 symbols!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXJAWEmpty"), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 else if (hrDb.AnyJobByName(tbJobName.Text))
                 {
-                    MessageBox.Show("Job with such name already exists!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXJAWjExists"), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 

@@ -12,7 +12,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid>
+        <Grid x:Name="gdMain">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -26,25 +26,25 @@
                 <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Text="From employee" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Tag="EPRWFrom" Grid.Row="0" Text="From employee" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBox Grid.Row="0" Grid.Column="1" x:Name="tbFrom" Foreground="#bfbfbf" Margin="10 20" FontSize="22"  Style="{StaticResource tbOrange}" IsEnabled="False"/>
 
-            <TextBlock Grid.Row="1" Text="To employee" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Tag="EPRWTo" Grid.Row="1" Text="To employee" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbTo" Foreground="#bfbfbf" Margin="10 20" FontSize="22"  Style="{StaticResource tbOrange}" IsEnabled="False"/>
 
-            <TextBlock Grid.Row="2" Text="Review Date" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Tag="EPRWDate" Grid.Row="2" Text="Review Date" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBox Grid.Row="2" Grid.Column="1" x:Name="tbDate" Foreground="#bfbfbf" Margin="10 20" FontSize="22"  Style="{StaticResource tbOrange}" IsEnabled="False"/>
 
-            <TextBlock Grid.Row="3" Text="Review type" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Tag="EPRWType" Grid.Row="3" Text="Review type" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <ComboBox Grid.Row="3"  Grid.Column="1" x:Name="cbIsGoodReview" FontSize="20" VerticalAlignment="Center" Margin="10 20" Foreground="White" Style="{StaticResource cbOrange}">
-                <ComboBoxItem Content="Good Review" Style="{StaticResource cbItemOrange}"/>
-                <ComboBoxItem Content="Bad Review" Style="{StaticResource cbItemOrange}"/>
+                <ComboBoxItem Tag="EPRWTypeGood" Content="Good Review" Style="{StaticResource cbItemOrange}"/>
+                <ComboBoxItem Tag="EPRWTypeBad" Content="Bad Review" Style="{StaticResource cbItemOrange}"/>
             </ComboBox>
 
-            <TextBlock Grid.Row="4" Grid.ColumnSpan="2" Text="Review Text" Foreground="White" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Tag="EPRWText" Grid.Row="4" Grid.ColumnSpan="2" Text="Review Text" Foreground="White" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBox Grid.Row="5" Grid.ColumnSpan="2" x:Name="tbReviewText" Foreground="#bfbfbf" Margin="15 20" FontSize="22"  Style="{StaticResource tbOrange}"/>
         </Grid>
         
-        <Button Grid.Row="3" Margin="15 10" Content="Send review" FontSize="28" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Click="Button_Click"/>
+        <Button x:Name="btnSendReview" Grid.Row="3" Margin="15 10" Content="Send review" FontSize="28" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Click="Button_Click"/>
     </Grid>
 </Window>

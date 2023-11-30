@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Foreground="Orange" FontSize="52" FontWeight="Medium" FontFamily="Cascadia Code" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Jobs" Margin="40"/>
+        <TextBlock x:Name="textBlockHeader" Grid.Row="0" Foreground="Orange" FontSize="52" FontWeight="Medium" FontFamily="Cascadia Code" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Jobs" Margin="40"/>
 
         <Grid Grid.Row="1" Background="#333333" Margin="40 0">
             <Grid.ColumnDefinitions>
@@ -29,11 +29,11 @@
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="Seach" FontSize="24" Foreground="White" FontWeight="Medium" VerticalAlignment="Center"/>
+                <TextBlock x:Name="textBlockSeach" Grid.Column="0" Text="Seach" FontSize="24" Foreground="White" FontWeight="Medium" VerticalAlignment="Center"/>
                 <TextBox x:Name="tbSeach" Grid.Column="1" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="-1 0 0 0" Style="{StaticResource tbOrange}" TextChanged="tbSeach_TextChanged"/>
             </Grid>
 
-            <TextBlock Grid.Column="2" Text="Job info" FontSize="26" Foreground="White" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock x:Name="textBlockInfo" Grid.Column="2" Text="Job info" FontSize="26" Foreground="White" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
 
         <Grid Grid.Row="2" Background="#333333" Margin="40 -1 40 0">
@@ -62,7 +62,7 @@
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="4*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="JobName" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
+                    <TextBlock Tag="JPtbJobName" Grid.Row="1" Grid.Column="0" Text="JobName" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
                     <TextBox Grid.Row="1" x:Name="tbJobName" Grid.Column="1" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" Margin="0 0 15 0" Tag="true"/>
                 </Grid>
 
@@ -71,7 +71,7 @@
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="4*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Amount of workers" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
+                    <TextBlock Tag="DJPtbAmount" Grid.Row="1" Grid.Column="0" Text="Amount of workers" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
                     <TextBox Grid.Row="1" x:Name="tbAmountOfWorkers" Grid.Column="1" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" Margin="0 0 15 0" Tag="false"/>
                 </Grid>
 
@@ -80,7 +80,7 @@
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="4*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Average salary $" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
+                    <TextBlock Tag="DJPtbAvgSal" Grid.Row="1" Grid.Column="0" Text="Average salary $" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
                     <TextBox Grid.Row="1" x:Name="tbAverageSalary" Grid.Column="1" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" Margin="0 0 15 0" Tag="false"/>
                 </Grid>
 
@@ -89,7 +89,7 @@
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="4*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Average workload (hours)" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
+                    <TextBlock Tag="DJPtbAvgWork" Grid.Row="1" Grid.Column="0" Text="Average workload (hours)" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="15 0 0 0"/>
                     <TextBox Grid.Row="1" x:Name="tbAverageWorkload" Grid.Column="1" FontSize="20" Foreground="White" VerticalAlignment="Center" Style="{StaticResource tbOrange}" Margin="0 0 15 0" Tag="false"/>
                 </Grid>
 
@@ -100,9 +100,9 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button x:Name="btnSaveJob" Grid.Column="0" Content="Save changes" FontSize="24" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Margin="10 0" Click="btnSaveJob_Click"/>
-                    <Button x:Name="btnDelJob" Grid.Column="1" Content="Delete job" FontSize="24" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Margin="10 0" Click="btnDelJob_Click"/>
-                    <Button x:Name="btnAddJob" Grid.Column="2" Content="Add job" FontSize="24" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand"  Margin="10 0" Click="btnAddJob_Click"/>
+                    <Button Tag="DJPbtnSaveChanges" x:Name="btnSaveJob" Grid.Column="0" Content="Save changes" FontSize="24" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Margin="10 0" Click="btnSaveJob_Click"/>
+                    <Button Tag="JPbtnDelJob" x:Name="btnDelJob" Grid.Column="1" Content="Delete job" FontSize="24" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand" Margin="10 0" Click="btnDelJob_Click"/>
+                    <Button Tag="JPbtnAddJob" x:Name="btnAddJob" Grid.Column="2" Content="Add job" FontSize="24" Foreground="Black" FontWeight="Medium" BorderThickness="0" Style="{StaticResource btnHover}" Cursor="Hand"  Margin="10 0" Click="btnAddJob_Click"/>
                 </Grid>
             </Grid>
         </Grid>

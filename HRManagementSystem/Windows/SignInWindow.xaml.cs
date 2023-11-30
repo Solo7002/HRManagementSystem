@@ -1,31 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HRManagementSystem.DbClasses;
+using HRManagementSystem.TransferClasses;
+using HRManagementSystem.Translation;
+using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using HRManagementSystem.DbClasses;
-using HRManagementSystem.TransferClasses;
 
 namespace HRManagementSystem.Windows
 {
     public partial class SignInWindow : Window
     {
         private HrManagementDb hrDb;
+        private string PasswordText;
+        private bool IsPasswording;
         public SignInWindow()
         {
             InitializeComponent();
             hrDb = new HrManagementDb();
             HrDbTransfer.SetHrManagementDb(hrDb);
+            PasswordText = "";
+            IsPasswording = false;
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (StreamReader reader = new StreamReader("../../Translation/LastLanguage/LastLang.txt"))
+                {
+                    string line = reader.ReadLine();
+                    if (line == null) 
+                    {
+                        line = "en";
+                    }
+                    LanguageTransfer.CurrentLanguage = line;
+                }
+                TranslateWindow();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                LanguageTransfer.CurrentLanguage = "en";
+            }
+        }
+
+        private void TranslateWindow()
+        {
+            textBlockHeader.Text = OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "siwMainHeader");
+            tbLogin.Tag = tbLogin.Text = OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "siwLogin");
+            tbPassword.Tag = tbPassword.Text = OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "siwPassword");
+            btnLogIn.Content = OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "siwbtnLogin");
+        }
+
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             if (sender is TextBox tb && tb.Text == tb.Tag.ToString())
@@ -43,7 +70,23 @@ namespace HRManagementSystem.Windows
                 tb.Foreground = new SolidColorBrush(Color.FromRgb(191, 191, 191));
                 tb.FontSize = 22;
                 tb.BorderBrush = Brushes.Gray;
-                tb.BorderThickness = new Thickness(0.56);
+                tb.BorderThickness = new Thickness(1);
+            }
+        }
+
+        private void tbPassword_GotFocus(object sender, RoutedEventArgs e)
+        {
+            pbPassword.Visibility = Visibility.Visible;
+            pbPassword.Focus();
+            tbPassword.Visibility = Visibility.Hidden;
+        }
+
+        private void pbPassword_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(pbPassword.Password))
+            {
+                tbPassword.Visibility = Visibility.Visible;
+                pbPassword.Visibility = Visibility.Hidden;
             }
         }
 
@@ -51,31 +94,17 @@ namespace HRManagementSystem.Windows
         {
             try
             {
-                int _tempSum = 0;
-                foreach (var item in grid.Children)
+                if (string.IsNullOrEmpty(tbLogin.Text) ||  tbLogin.Text == tbLogin.Tag.ToString())
                 {
-                    if (item is TextBox tb)
-                    {
-                        if (tb.Text == tb.Tag.ToString() || tb.Text.All(t => t == ' '))
-                        {
-                            tb.BorderThickness = new Thickness(1);
-                            tb.BorderBrush = Brushes.Red;
-                            _tempSum++;
-                        }
-                        else
-                        {
-                            tb.BorderThickness = new Thickness(1);
-                            tb.BorderBrush = new SolidColorBrush(Color.FromRgb(171, 173, 179));
-                        }
-                    }
+                    MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXSIWLogEmpty"), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                if (_tempSum > 0)
+                else if (string.IsNullOrEmpty(pbPassword.Password))
                 {
-                    MessageBox.Show($"Fields can't be empty!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXSIWPasEmpty"), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                else if (!hrDb.UserAnyByLoginPassword(tbLogin.Text, tbPassword.Text))
+                else if (!hrDb.UserAnyByLoginPassword(tbLogin.Text, pbPassword.Password))
                 {
-                    MessageBox.Show("No users with such login and password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXSIWWrongPasLog"), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {

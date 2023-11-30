@@ -1,18 +1,12 @@
 ﻿using HRManagementSystem.DbClasses;
 using HRManagementSystem.TransferClasses;
+using HRManagementSystem.Translation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace HRManagementSystem.Windows.TablesSetters
 {
@@ -20,7 +14,6 @@ namespace HRManagementSystem.Windows.TablesSetters
     {
         HrManagementDb hrDb;
         private Employee RecievedEmployee;
-        DateTime BirthDate;
         public UpdateEmployeeWindow()
         {
             InitializeComponent();
@@ -33,6 +26,8 @@ namespace HRManagementSystem.Windows.TablesSetters
         {
             try
             {
+                TranslatePage();
+
                 foreach (Job job in hrDb.GetJobs())
                 {
                     ComboBoxItem comboBoxItem = new ComboBoxItem { Content = job.JobName, Style = (Style)this.FindResource("cbItemOrange") };
@@ -75,7 +70,7 @@ namespace HRManagementSystem.Windows.TablesSetters
 
                 tbPiLastName.Text = RecievedEmployee.LastName;
                 tbPiFisrtName.Text = RecievedEmployee.FirstName;
-                tbPiBirthdate.Text = RecievedEmployee.BirthDate.Value.ToShortDateString();
+                dpPiBirthdate.SelectedDate = RecievedEmployee.BirthDate.Value;
                 tbPiEmail.Text = RecievedEmployee.Email;
 
                 tbUiLogin.Text = RecievedEmployee.User.Login;
@@ -94,6 +89,24 @@ namespace HRManagementSystem.Windows.TablesSetters
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        private void TranslatePage()
+        {
+            string lang = LanguageTransfer.CurrentLanguage;
+            btnUpdate.Content = OpenTranslation.GetTranslation(lang, "PPbtnUpdate");
+            foreach (var item in gdMain.Children)
+            {
+                if (item is Grid grid)
+                {
+                    foreach (var element in grid.Children)
+                    {
+                        if (element is TextBlock block)
+                        {
+                            block.Text = OpenTranslation.GetTranslation(lang, block.Tag.ToString());
+                        }
+                    }
+                }
+            }
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -105,34 +118,33 @@ namespace HRManagementSystem.Windows.TablesSetters
                     {
                         if ((child is TextBox tb && string.IsNullOrEmpty(tb.Text)) || (child is ComboBox cb && cb.SelectedItem == null))
                         {
-                            MessageBox.Show("Not all fields were filled! Please Fill all fields!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXEAEWFilledsFilled"), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                             return;
                         }
                         else if (child is TextBox textBox && textBox.Name != "tbJiHours" && textBox.Text.Length < 3)
                         {
-                            MessageBox.Show("Each field must have 3 and more symbols!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXEAEWFilledssymbols"), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                             return;
                         }
                     }
                 }
             }
-            tbPiBirthdate.Text.Replace('.', '-');
-            tbPiBirthdate.Text.Replace('/', '-');
-            if (!DateTime.TryParse(tbPiBirthdate.Text, out BirthDate))
+
+            if (tbUiLogin.Text != CurrentUserTransfer.employeeForAddSet.User.Login && hrDb.UserAnyByLogin(tbUiLogin.Text))
             {
-                MessageBox.Show("Wrong date input! Try that way (dd-MM-yyyy) or (dd.MM.yyyy)", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXEAEWUserExists"), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            else if (tbUiLogin.Text != CurrentUserTransfer.employeeForAddSet.User.Login && hrDb.UserAnyByLogin(tbUiLogin.Text))
+            else if (tbPiEmail.Text.Length <= 3 || !IsValidEmail(tbPiEmail.Text))
             {
-                MessageBox.Show("User with such Login already exists!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXPEmail"), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             try
             {
                 RecievedEmployee.LastName = tbPiLastName.Text;
                 RecievedEmployee.FirstName = tbPiFisrtName.Text;
-                RecievedEmployee.BirthDate = BirthDate;
+                RecievedEmployee.BirthDate = dpPiBirthdate.SelectedDate;
                 RecievedEmployee.Email = tbPiEmail.Text;
 
                 RecievedEmployee.EmployeePostInfo.Job = hrDb.GetJobByName((cbJiJob.SelectedItem as ComboBoxItem).Content.ToString());
@@ -152,6 +164,78 @@ namespace HRManagementSystem.Windows.TablesSetters
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        public bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            try
+            {
+                email = Regex.Replace(email, @"(@)(.+)$", DomainMapper,
+                                      RegexOptions.None, TimeSpan.FromMilliseconds(200));
+                string DomainMapper(Match match)
+                {
+                    var idn = new IdnMapping();
+
+                    string domainName = idn.GetAscii(match.Groups[2].Value);
+
+                    return match.Groups[1].Value + domainName;
+                }
+            }
+            catch (RegexMatchTimeoutException e)
+            {
+                return false;
+            }
+            catch (ArgumentException e)
+            {
+                return false;
+            }
+
+            try
+            {
+                return Regex.IsMatch(email,
+                    @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
+                    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return false;
+            }
+        }
+
+        private void dpPiBirthdate_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (sender is DatePicker datePicker)
+            {
+                var textBox = GetChildOfType<TextBox>(datePicker);
+
+                if (textBox != null)
+                {
+                    textBox.Background = new SolidColorBrush(Color.FromRgb(68, 68, 68));
+                    textBox.Foreground = Brushes.White;
+                }
+            }
+        }
+        private T GetChildOfType<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj == null) return null;
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+            {
+                var child = VisualTreeHelper.GetChild(depObj, i);
+
+                if (child != null && child is T)
+                {
+                    return (T)child;
+                }
+
+                var childItem = GetChildOfType<T>(child);
+                if (childItem != null) return childItem;
+            }
+
+            return null;
         }
     }
 }

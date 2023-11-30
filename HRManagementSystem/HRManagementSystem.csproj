@@ -34,12 +34,18 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>2303805.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -99,9 +105,6 @@
     <Compile Include="Pages\DepartmentsPage.xaml.cs">
       <DependentUpon>DepartmentsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\DiagramsPage.xaml.cs">
-      <DependentUpon>DiagramsPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\EmployeesPage.xaml.cs">
       <DependentUpon>EmployeesPage.xaml</DependentUpon>
     </Compile>
@@ -126,6 +129,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TransferClasses\HrDbTransfer.cs" />
+    <Compile Include="TransferClasses\LanguageTransfer.cs" />
+    <Compile Include="Translation\OpenTranslation.cs" />
     <Compile Include="User.cs">
       <DependentUpon>HrManagementSystemModel.tt</DependentUpon>
     </Compile>
@@ -181,6 +186,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Translation\Languages\en.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -190,10 +196,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Pages\DepartmentsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\DiagramsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -247,6 +249,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="2303805.ico" />
     <Content Include="HrManagementSystemModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>HrManagementSystemModel.edmx</DependentUpon>
@@ -257,6 +260,8 @@
       <DependentUpon>HrManagementSystemModel.edmx</DependentUpon>
       <LastGenOutput>HrManagementSystemModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Translation\LastLanguage\LastLang.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

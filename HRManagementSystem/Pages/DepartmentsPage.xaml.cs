@@ -1,25 +1,15 @@
-﻿using System;
+﻿using HRManagementSystem.DbClasses;
+using HRManagementSystem.TransferClasses;
+using HRManagementSystem.Translation;
+using HRManagementSystem.Windows.TablesSetters;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using HRManagementSystem.DbClasses;
-using HRManagementSystem.TransferClasses;
-using HRManagementSystem.Windows.TablesSetters;
 
 namespace HRManagementSystem.Pages
-{ 
+{
     public partial class DepartmentsPage : Page
     {
         private HrManagementDb hrDb;
@@ -30,12 +20,41 @@ namespace HRManagementSystem.Pages
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            TranslatePage();
+
             hrDb = TransferClasses.HrDbTransfer.hrManagementDb;
             FillLbDepartments();
 
             EnableDisableFields();
             FillData();
         }
+
+        private void TranslatePage()
+        {
+            string lang = LanguageTransfer.CurrentLanguage;
+
+            textBlockHeader.Text = OpenTranslation.GetTranslation(lang, "DPMainHeader");
+            textBlockSeach.Text = OpenTranslation.GetTranslation(lang, "DJPSmallHeaderDep");
+            textBlockInfo.Text = OpenTranslation.GetTranslation(lang, "DPSmallHeaderInfo");
+            foreach (var item in gdWithTbCb.Children)
+            {
+                if (item is Grid grid)
+                {
+                    foreach (var element in grid.Children)
+                    {
+                        if (element is TextBlock block)
+                        {
+                            block.Text = OpenTranslation.GetTranslation(lang, block.Tag.ToString());
+                        }
+                        else if (element is Button button)
+                        {
+                            button.Content = OpenTranslation.GetTranslation(lang, button.Tag.ToString());
+                        }
+                    }
+                }
+            }
+        }
+
         private void tbSeach_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(tbSeach.Text) && string.IsNullOrEmpty(tbSeach.Text))
@@ -171,12 +190,12 @@ namespace HRManagementSystem.Pages
             {
                 if (string.IsNullOrEmpty(tbDepName.Text) || string.IsNullOrWhiteSpace(tbDepName.Text) || tbDepName.Text.Length<5)
                 {
-                    MessageBox.Show("Field Department name is empty or have less than 5 symbols!");
+                    MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXDAWEmpty"));
                     return;
                 }
                 else if (hrDb.AnyDepartmentByName(tbDepName.Text))
                 {
-                    MessageBox.Show("Department with such name already exists!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXDAWjExists"), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 CurrentDepartment.DepartmentName = tbDepName.Text;
@@ -191,7 +210,7 @@ namespace HRManagementSystem.Pages
 
                 hrDb.UpdateDepartment(CurrentDepartment, (lbDepartments.SelectedItem as ListBoxItem).Content.ToString());
 
-                MessageBox.Show("Department updated");
+                MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXDUpdated"));
                 FillLbDepartments();
                 EnableDisableFields();
                 FillData();
@@ -210,14 +229,14 @@ namespace HRManagementSystem.Pages
                 {
                     if (CurrentDepartment.EmployeePostInfoes.Count>0)
                     {
-                        MessageBox.Show("You can't delete department with people in it.\nRemove everybody from department to delete it", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXDHavePeopleDel"), "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
                     }
                     hrDb.DelDepartment(CurrentDepartment);
                     FillLbDepartments();
                     EnableDisableFields();
                     FillData();
-                    MessageBox.Show("Department deleted", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXDDeleted"), "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
@@ -232,7 +251,7 @@ namespace HRManagementSystem.Pages
             {
                 if (new AddDepaertmentWindow().ShowDialog()==true)
                 {
-                    MessageBox.Show("New Department added", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(OpenTranslation.GetTranslation(LanguageTransfer.CurrentLanguage, "EXDAdded"), "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                     FillLbDepartments();
                     EnableDisableFields();
                     FillData();
